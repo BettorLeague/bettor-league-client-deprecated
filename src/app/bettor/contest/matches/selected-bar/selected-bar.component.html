@@ -1,0 +1,27 @@
+<div fxFlex fxLayout="row">
+
+  <div fxFlex="0 1 auto" fxLayout="row" fxLayoutGap="10px">
+    <button  mat-button  fxHide fxShow.gt-sm (click)="playerService.deselectAllMatches()">
+      <mat-icon fxFlexAlign="center" class="mr-4">arrow_back</mat-icon>
+      <span>Annuler</span>
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="selectMenu" *ngIf="!filter" >
+      {{selectedMatch.length}} matchs selectionner
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+
+    <mat-menu #selectMenu="matMenu" [overlapTrigger]="false" xPosition="before" yPosition="below">
+      <button mat-menu-item (click)="playerService.selectAllMatches()">Tout sélectionner</button>
+      <button mat-menu-item (click)="playerService.deselectAllMatches()">Tout déselectionner</button>
+    </mat-menu>
+  </div>
+
+  <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-end" fxLayoutGap="10px">
+
+    <button mat-button (click)="bettorService.pronosticDrawer.open()">
+      <mat-icon fxFlexAlign="center" class="mr-4" >done</mat-icon>
+      <span >Pronostiquer</span>
+    </button>
+  </div>
+</div>

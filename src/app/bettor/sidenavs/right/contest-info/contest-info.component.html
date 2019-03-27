@@ -1,0 +1,53 @@
+<ng-container *ngIf="contest">
+
+  <div class="sidenav-header">
+
+    <!-- CONTACT TOOLBAR -->
+    <mat-toolbar class="mat-primary-bg">
+
+      <!-- TOOLBAR TOP -->
+      <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+
+        <div>Contest Info</div>
+
+        <button mat-icon-button fuseMatSidenavToggler="bettor-right-sidenav" aria-label="close">
+          <mat-icon>close</mat-icon>
+        </button>
+
+      </mat-toolbar-row>
+      <!-- / TOOLBAR TOP -->
+
+      <!-- TOOLBAR BOTTOM -->
+      <mat-toolbar-row class="toolbar-bottom" fxLayout="column" fxLayoutAlign="center center">
+
+        <app-blason class="logo-contest" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'0ms',scale:'0.1'}}"  [width]="'150px'" [height]="'150px'" [logo]="contest.competition.logo"></app-blason>
+        <div *fuseIfOnDom [@animate]="{value:'*',params:{delay:'10ms',y:'50px'}}" class="contact-name my-8">{{contest.caption}}</div>
+      </mat-toolbar-row>
+      <!-- / TOOLBAR BOTTOM -->
+
+    </mat-toolbar>
+    <!-- / CONTACT TOOLBAR -->
+  </div>
+
+  <div class="sidenav-content" fxLayoutGap="15px" fxLayout="column">
+
+
+    <mat-card class="p-0">
+      <mat-nav-list class="p-0">
+        <mat-list-item (click)="unSubscribe()">
+          <mat-icon matListIcon>exit_to_app</mat-icon>
+          <p matLine> Quitter le concours </p>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-card>
+
+    <mat-card class="p-0">
+      <mat-nav-list class="p-0">
+        <mat-list-item>
+          <mat-icon matListIcon>delete</mat-icon>
+          <p matLine> Supprimer concours </p>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-card>
+  </div>
+</ng-container>

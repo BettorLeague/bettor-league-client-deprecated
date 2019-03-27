@@ -1,0 +1,38 @@
+<!-- SIDENAV HEADER -->
+<div class="sidenav-header">
+
+  <!-- USER TOOLBAR -->
+  <mat-toolbar class="mat-primary-bg">
+
+    <!-- TOOLBAR TOP -->
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+
+      <button mat-icon-button (click)="changeLeftSidenavView('user-contest')" aria-label="back">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+    </mat-toolbar-row>
+    <!-- / TOOLBAR TOP -->
+
+    <!-- TOOLBAR BOTTOM -->
+    <mat-toolbar-row class="toolbar-bottom" fxLayout="column" fxLayoutAlign="center center">
+
+      <img *fuseIfOnDom [@animate]="{value:'*',params:{delay:'0ms',scale:'0.1'}}" src="http://angular-material.fusetheme.com/assets/images/avatars/profile.jpg" class="avatar user-avatar w-120 h-120" />
+      <div *fuseIfOnDom [@animate]="{value:'*',params:{delay:'10ms',y:'50px'}}" class="user-name my-8">{{user.username}}</div>
+
+    </mat-toolbar-row>
+    <!-- / TOOLBAR BOTTOM -->
+
+  </mat-toolbar>
+  <!-- / USER TOOLBAR -->
+</div>
+
+<!-- SIDENAV CONTENT -->
+<div class="sidenav-content p-16" fxFlex>
+
+  <!-- USER MOOD -->
+  <mat-card>
+
+  </mat-card>
+  <!-- / USER MOOD -->
+</div>

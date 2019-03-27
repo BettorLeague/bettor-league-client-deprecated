@@ -1,0 +1,19 @@
+:host{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  .real-score{
+    padding: 3px 5px 7px;
+    background: #202020;
+    text-align: center;
+    color: white;
+  }
+  .user-score{
+    //border: 1px solid #e0e0e0;
+    background: #e8e8e8;
+    color: rgba(0,0,0,.6);
+    text-align: center;
+  }
+}

@@ -1,0 +1,81 @@
+
+<ng-container *ngIf="matches; else loader">
+  <section>
+      <mat-grid-list [cols]="1" rowHeight="120px" >
+        <mat-grid-tile  mat-ripple *ngFor="let match of matches | filter: filter | orderBy: trie.field : trie.asc : false "
+                        [colspan]="1" [rowspan]="1"
+                        [ngClass]="{'mat-accent-50-bg':selectedMatch.indexOf(match.id) > -1}"
+                        (click)="onSelectedChange(match.id,match.status)"
+                        [style.cursor]="'pointer'">
+          <!--<app-match-overview [match]="match" [pronostic]="getMatchPronostic(match)"></app-match-overview>-->
+
+          <div class="match-indicator" [ngClass]="{'green-bg' : match.status == 'SCHEDULED', 'red-bg' : match.status == 'FINISHED'}">
+            {{match.status == "SCHEDULED" ? "Prévu" : "Terminé"}}
+          </div>
+
+          <div fxFlex="100" fxLayout="row" class="px-16" [style.height]="'100%'" >
+
+            <div fxFlex="42.5" fxLayout="column" fxLayoutAlign="space-around">
+              <div fxLayout="row" fxLayoutGap="15px" #hometeam>
+                <app-blason [logo]="match.homeTeam.logo" [width]="'40px'" [height]="'40px'"></app-blason>
+                <span fxFlexAlign="center">{{match.homeTeam.name}} </span>
+              </div>
+              <div fxLayout="row" fxLayoutGap="15px" #awayteam>
+
+                <app-blason [logo]="match.awayTeam.logo" [width]="'40px'" [height]="'40px'"></app-blason>
+                <span fxFlexAlign="center">{{match.awayTeam.name}}</span>
+              </div>
+            </div>
+
+            <ng-container *ngIf="getMatchPronostic(match) | async as prono; else noProno" >
+              <div fxFlex="17" fxLayout="column" fxLayoutAlign="space-around">
+                <span class="prono" fxFlexAlign="center">{{prono.goalsHomeTeam}}</span>
+                <span class="prono" fxFlexAlign="center">{{prono.goalsAwayTeam}}</span>
+              </div>
+            </ng-container>
+            <ng-template #noProno>
+              <div fxFlex="17" fxLayout="column" fxLayoutAlign="space-around">
+              </div>
+            </ng-template>
+
+            <mat-divider vertical [style.height]="'70%'" fxFlexAlign="center" ></mat-divider>
+
+            <div fxFlex="42.5" fxFlexAlign="center" fxLayoutAlign="center" [style.height]="'100%'">
+
+              <ng-container *ngIf="match.status == 'SCHEDULED'; else finished ">
+                <span fxFlexAlign="center"> {{match.utcDate | date:'dd/MM/yyyy à HH:mm' }}</span>
+              </ng-container>
+
+              <ng-template #finished>
+                <div fxFlex="100" fxLayout="row" >
+                  <div fxFlex="40" fxLayout="column" fxLayoutAlign="space-around">
+                    <span class="score" fxFlexAlign="center">{{match.score.fullTime.homeTeam}}</span>
+                    <span class="score" fxFlexAlign="center">{{match.score.fullTime.awayTeam}}</span>
+                  </div>
+                  <div fxFlex="60" fxLayout="column" fxFlexAlign="center" fxLayoutAlign="center" fxLayoutGap="15px">
+                    <ng-template [ngIf]="match.score.winner == 'HOME_TEAM'">
+                      <app-blason fxFlexAlign="center" [logo]="match.homeTeam.logo" [height]="'35px'" [width]="'35px'"></app-blason>
+                      <span fxFlexAlign="center">{{match.homeTeam.shortName ? match.homeTeam.shortName : match.homeTeam.name}}</span>
+                    </ng-template>
+                    <ng-template [ngIf]="match.score.winner == 'AWAY_TEAM'">
+                      <app-blason fxFlexAlign="center" [logo]="match.awayTeam.logo" [height]="'35px'" [width]="'35px'"></app-blason>
+                      <span fxFlexAlign="center">{{match.awayTeam.shortName ? match.awayTeam.shortName : match.awayTeam.name}}</span>
+                    </ng-template>
+                    <ng-template [ngIf]="match.score.winner == 'DRAW'">
+                      <span fxFlexAlign="center">Match nul</span>
+                    </ng-template>
+                  </div>
+                </div>
+              </ng-template>
+
+            </div>
+
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+  </section>
+</ng-container>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

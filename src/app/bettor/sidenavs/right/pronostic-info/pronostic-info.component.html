@@ -1,0 +1,64 @@
+
+<header>
+  <div class="header-content">
+    <button mat-icon-button (click)="bettorService.pronosticDrawer.close()" aria-label="back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Mes Pronostics</h2>
+  </div>
+</header>
+
+<div class="filter">
+  <div fxFlex fxLayout="row">
+    <div fxFlex="1 1 auto" fxLayout="row" fxLayoutGap="10px" class="green-400-bg">
+      <button (click)="saveProno()" mat-button fxFlex="100" [style.color]="'white'"  >
+        <mat-icon fxFlexAlign="center" class="mr-4">done</mat-icon>
+        <span>{{'Valider mes pronostics' | uppercase}}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<section>
+  <mat-grid-list cols="1" rowHeight="124px">
+    <mat-grid-tile *ngFor="let pronostic of newPronostics"  [colspan]="1" [rowspan]="1"  >
+      <div class="tile-date">
+        {{pronostic.match.utcDate | date:'dd/MM/yyyy HH:mm'}}
+      </div>
+      <div fxFlex="100" fxLayout="column" class="px-16" [style.height]="'100%'" >
+
+        <div fxFlex="100" fxLayout="row">
+
+          <div [style.cursor]="'pointer'" [style.position]="'relative'"  (click)="selectTeam(pronostic.match.homeTeam)" fxFlex="30" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="5px">
+            <h4 class="m-0" fxFlexAlign="center">{{pronostic.match.homeTeam.name}} </h4>
+            <app-blason fxFlexAlign="center" [logo]="pronostic.match.homeTeam.logo" [width]="'40px'" [height]="'40px'"></app-blason>
+          </div>
+
+          <div fxFlex="40" fxLayout="row" fxLayoutAlign="space-around center" >
+
+            <div fxFlex="20" fxLayout="column" fxLayoutAlign="center center">
+              <button class="increment-btn" mat-icon-button (click)="test = true;pronostic.goalsHomeTeam = pronostic.goalsHomeTeam + 1"><mat-icon>keyboard_arrow_up</mat-icon></button>
+              <input [(ngModel)]="pronostic.goalsHomeTeam"  min="0" class="input-prono" type="number">
+              <button class="increment-btn" mat-icon-button (click)="test = false;pronostic.goalsHomeTeam = pronostic.goalsHomeTeam > 0 ? pronostic.goalsHomeTeam - 1 : 0"><mat-icon>keyboard_arrow_down</mat-icon></button>
+            </div>
+
+            <div fxFlex="20" fxLayout="column" fxLayoutAlign="center center">
+              <button class="increment-btn" mat-icon-button (click)="pronostic.goalsAwayTeam = pronostic.goalsAwayTeam + 1"><mat-icon>keyboard_arrow_up</mat-icon></button>
+              <input [(ngModel)]="pronostic.goalsAwayTeam"  min="0" class="input-prono" type="number">
+              <button class="increment-btn" mat-icon-button (click)="pronostic.goalsAwayTeam = pronostic.goalsAwayTeam  > 0 ? pronostic.goalsAwayTeam - 1 : 0"><mat-icon>keyboard_arrow_down</mat-icon></button>
+            </div>
+
+          </div>
+
+          <div [style.cursor]="'pointer'" [style.position]="'relative'" (click)="selectTeam(pronostic.match.awayTeam)" fxFlex="30" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="5px">
+            <app-blason  fxFlexAlign="center" [logo]="pronostic.match.awayTeam.logo" [width]="'40px'" [height]="'40px'"></app-blason>
+            <h4 class="m-0" fxFlexAlign="center" >{{pronostic.match.awayTeam.name}}</h4>
+          </div>
+        </div>
+
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-divider></mat-divider>
+</section>

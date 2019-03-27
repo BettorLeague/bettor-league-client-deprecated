@@ -1,0 +1,17 @@
+<div class="w-100-p">
+
+  <ng-container *ngIf="competitionInfo && !isRegularSeason()">
+    <mat-tab-group (selectedIndexChange)="selectStandingByGroup($event)">
+      <mat-tab  *ngFor="let group of competitionInfo.availableGroup" [label]="group" >
+        <ng-template matTabContent>
+          <app-standing ></app-standing>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </ng-container>
+
+  <ng-container *ngIf="competitionInfo && isRegularSeason()">
+    <app-standing ></app-standing>
+  </ng-container>
+
+</div>

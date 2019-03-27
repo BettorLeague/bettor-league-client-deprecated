@@ -1,0 +1,30 @@
+<header>
+  <div class="header-content">
+    <button mat-icon-button (click)="changeLeftSidenavView('user-contest')" aria-label="back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Rejoindre un concours</h2>
+  </div>
+</header>
+
+
+<!-- SIDENAV CONTENT -->
+<div class="sidenav-content bg-white" fxFlex>
+
+  <mat-tab-group mat-stretch-tabs [color]="'primary'" [backgroundColor]="'primary'">
+    <mat-tab label="Concours public">
+      <mat-nav-list>
+        <mat-list-item  (click)="subscribe(contest.id)" *ngFor="let contest of publicContest">
+          <app-blason matListAvatar [width]="'40px'" [height]="'40px'" [logo]="contest.competition.logo"></app-blason>
+          <h4 matLine>{{contest.caption}}</h4>
+          <p matLine >
+            <span>  Concours {{contest.type | lowercase}} </span>
+          </p>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-tab>
+    <mat-tab label="Concours privé">
+    </mat-tab>
+  </mat-tab-group>
+</div>

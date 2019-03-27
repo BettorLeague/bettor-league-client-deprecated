@@ -1,0 +1,29 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  mat-toolbar {
+
+    .toolbar-bottom {
+      height: 240px;
+    }
+  }
+
+  .sidenav-content {
+    background: whitesmoke;
+    flex: 1;
+    height: 100%;
+    width: 100%;
+  }
+
+  .logo-contest{
+    padding: 20px;
+    background: white;
+    border-radius: 50%;
+  }
+}

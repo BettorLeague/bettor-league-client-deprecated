@@ -1,0 +1,19 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="center center">
+
+  <div class="big-circle mat-elevation-z2 app-logo" fxLayout="column" fxLayoutAlign="center center"
+       [@animate]="{value:'*',params:{delay:'400ms',scale:'0.2'}}">
+
+    <mat-icon class="s-100 s-mat-128 mat-accent">weekend</mat-icon>
+
+  </div>
+
+  <span class="app-title my-24" [@animate]="{value:'*',params:{delay:'400ms',y:'25px'}}">Bettor League App</span>
+
+  <span fxHide fxShow.gt-md class="app-message" [@animate]="{value:'*',params:{delay:'500ms',y:'50px'}}">
+        Select contest to start the bet...
+    </span>
+
+  <button mat-raised-button fxHide.gt-md fuseMatSidenavToggler="bettor-left-sidenav">
+    Select contest to start the bet...
+  </button>
+</div>

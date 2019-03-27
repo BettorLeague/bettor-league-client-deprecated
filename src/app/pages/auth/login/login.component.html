@@ -1,0 +1,87 @@
+<div id="login" fxLayout="row" fxLayoutAlign="start">
+  <div class="overlay"></div>
+
+  <ng-container>
+    <app-intro fxFlex fxHide fxShow.gt-xs></app-intro>
+  </ng-container>
+
+  <div id="login-form-wrapper"  *fuseIfOnDom [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}">
+    <div id="login-form">
+
+      <div class="logo" fxHide.gt-xs>
+        <span>BL</span>
+      </div>
+
+      <div class="title">LOGIN TO YOUR ACCOUNT</div>
+
+      <form name="loginForm" [formGroup]="loginForm" novalidate>
+
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="loginFormErrors.email.required">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="!loginFormErrors.email.required && loginFormErrors.email.email">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" formControlName="password">
+          <mat-error *ngIf="loginFormErrors.password.required">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+
+        <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
+             fxLayoutAlign="space-between center">
+          <mat-checkbox class="remember-me" aria-label="Remember Me">
+            Remember Me
+          </mat-checkbox>
+
+          <a class="forgot-password" [routerLink]="'/forgot-password'">
+            Forgot Password?
+          </a>
+        </div>
+
+        <button mat-raised-button color="accent" class="submit-button" aria-label="LOGIN"
+                (click)="onSubmit()"
+                [disabled]="loginForm.invalid">
+          LOGIN
+        </button>
+
+      </form>
+<!--
+      <div class="separator">
+        <span class="text">OR</span>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="start center">
+
+
+        <form ngNoForm action="http://bettorleague.ovh/signin/google"  method="POST" class="socialForm">
+          <button type="submit" mat-raised-button class="google">
+            Log in with Google
+          </button>
+        </form>
+
+        <form ngNoForm action="http://bettorleague.ovh/signin/facebook"  method="POST" class="socialForm">
+          <button type="submit" mat-raised-button class="facebook">
+            Log in with Facebook
+          </button>
+        </form>
+
+
+      </div>-->
+
+    <div class="separator">
+      <span class="text">OR</span>
+    </div>
+
+      <div class="register" fxLayout="column" fxLayoutAlign="center center">
+        <span class="text">Don't have an account?</span>
+        <a class="link" [routerLink]="'/auth/register'">Create an account</a>
+      </div>
+    </div>
+  </div>
+</div>

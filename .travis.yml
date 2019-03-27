@@ -1,0 +1,22 @@
+services:
+  - docker
+addons:
+    apt:
+        packages:
+            - sshpass
+language: node_js
+node_js:
+  - '9'
+branches:
+  only:
+    - master
+script:
+  - ng build --prod
+
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export IMAGE_NAME=bettor-league-client
+  - docker build -t $IMAGE_NAME .
+  - docker tag $IMAGE_NAME $DOCKER_USER/$IMAGE_NAME
+  - docker push $DOCKER_USER/$IMAGE_NAME
+  - sshpass -p $DEPLOY_PASS ssh -o stricthostkeychecking=no $DEPLOY_USER@$DEPLOY_HOST bash /$IMAGE_NAME/start.sh

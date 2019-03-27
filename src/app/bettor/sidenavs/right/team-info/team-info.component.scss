@@ -1,0 +1,58 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+
+  mat-toolbar {
+
+    .toolbar-bottom {
+      height: 240px;
+
+    }
+  }
+
+  .sidenav-content {
+    background: whitesmoke;
+    overflow: auto;
+
+    .match-card{
+      margin: 10px;
+    }
+  }
+
+  .logo-contest{
+    padding: 20px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  .score{
+    align-self: center;
+    padding: 5px 10px;
+    border:1px solid #E0E0E0;
+    background: #e8e8e8;
+    color: rgba(0,0,0,.6);
+    border-radius: 10%;
+  }
+
+  ::ng-deep .mat-tab-group{
+    height: 100%;
+    width: 100%;
+    ::ng-deep.mat-tab-header{
+      background: white;
+      z-index: 2;
+      //@include mat-elevation(2);
+    }
+    ::ng-deep .mat-tab-body{
+      background: whitesmoke;
+    }
+    ::ng-deep .mat-tab-body-wrapper{
+      flex: 1;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<div [ngSwitch]="view" class="views">
+
+  <app-subscribe-contest class="view"
+                         *ngSwitchCase="'subscribe-contest'"
+                         [@slideInRight]>
+
+  </app-subscribe-contest>
+  <app-profil class="view"
+                      *ngSwitchCase="'profil'"
+                      [@slideInRight]>
+  </app-profil>
+  <app-user-contest class="view"
+                    *ngSwitchCase="'user-contest'"
+                    [@slideInLeft]>
+
+  </app-user-contest>
+
+</div>

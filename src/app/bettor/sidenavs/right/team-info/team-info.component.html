@@ -1,0 +1,120 @@
+<!-- SIDENAV HEADER -->
+<div class="sidenav-header" *ngIf="team">
+
+  <!-- CONTACT TOOLBAR -->
+  <mat-toolbar class="mat-primary-bg">
+
+    <!-- TOOLBAR TOP -->
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+      <div>{{team.name}}</div>
+      <button mat-icon-button fuseMatSidenavToggler="bettor-right-sidenav" aria-label="close">
+        <mat-icon>close</mat-icon>
+      </button>
+
+    </mat-toolbar-row>
+    <!-- / TOOLBAR TOP -->
+
+    <!-- TOOLBAR BOTTOM -->
+    <mat-toolbar-row class="toolbar-bottom" fxLayout="column" fxLayoutAlign="center center">
+      <app-blason class="logo-contest" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'0ms',scale:'0.1'}}"  [width]="'150px'" [height]="'150px'" [logo]="team.logo"></app-blason>
+    </mat-toolbar-row>
+    <!-- / TOOLBAR BOTTOM -->
+
+  </mat-toolbar>
+  <!-- / CONTACT TOOLBAR -->
+</div>
+
+<!-- SIDENAV CONTENT -->
+<div class="sidenav-content" fxFlex *ngIf="team" fxLayout="column">
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="Forme">
+      <div fxLayout="column">
+        <div class="match-card" *ngFor="let match of last5match">
+          <mat-card  fxLayout="row" >
+            <div fxFlex="42.5" fxLayout="column" fxLayoutAlign="space-around">
+              <div fxLayout="row" fxLayoutGap="15px" #hometeam>
+                <app-blason [logo]="match.homeTeam.logo" [width]="'40px'" [height]="'40px'"></app-blason>
+                <span fxFlexAlign="center">{{match.homeTeam.name}} </span>
+              </div>
+              <div fxLayout="row" fxLayoutGap="15px" #awayteam>
+
+                <app-blason [logo]="match.awayTeam.logo" [width]="'40px'" [height]="'40px'"></app-blason>
+                <span fxFlexAlign="center">{{match.awayTeam.name}}</span>
+              </div>
+            </div>
+            <mat-divider vertical [style.height]="'70%'" fxFlexAlign="center" ></mat-divider>
+            <div fxFlex="42.5" fxFlexAlign="center" fxLayoutAlign="center" [style.height]="'100%'">
+
+              <div fxFlex="100" fxLayout="row" >
+                <div fxFlex="40" fxLayout="column" fxLayoutAlign="space-around">
+                  <span class="score" fxFlexAlign="center">{{match.score.fullTime.homeTeam}}</span>
+                  <span class="score" fxFlexAlign="center">{{match.score.fullTime.awayTeam}}</span>
+                </div>
+                <div fxFlex="60" fxLayout="column" fxFlexAlign="center" fxLayoutAlign="center" fxLayoutGap="15px">
+                  <ng-template [ngIf]="match.score.winner == 'HOME_TEAM'">
+                    <app-blason fxFlexAlign="center" [logo]="match.homeTeam.logo" [height]="'35px'" [width]="'35px'"></app-blason>
+                    <span fxFlexAlign="center">{{match.homeTeam.shortName ? match.homeTeam.shortName : match.homeTeam.name}}</span>
+                  </ng-template>
+                  <ng-template [ngIf]="match.score.winner == 'AWAY_TEAM'">
+                    <app-blason fxFlexAlign="center" [logo]="match.awayTeam.logo" [height]="'35px'" [width]="'35px'"></app-blason>
+                    <span fxFlexAlign="center">{{match.awayTeam.shortName ? match.awayTeam.shortName : match.awayTeam.name}}</span>
+                  </ng-template>
+                  <ng-template [ngIf]="match.score.winner == 'DRAW'">
+                    <span fxFlexAlign="center">Match nul</span>
+                  </ng-template>
+                </div>
+              </div>
+
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Information">
+      <div fxLayout="column" fxLayoutGap="10px">
+
+        <mat-card class="p-0" *ngIf="team.address">
+          <mat-nav-list class="p-0">
+            <mat-list-item>
+              <mat-icon matListIcon>location_on</mat-icon>
+              <h4 mat-line>Adresse</h4>
+              <p matLine> {{team.address}} </p>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-card>
+
+        <mat-card class="p-0" *ngIf="team.phone">
+          <mat-nav-list class="p-0">
+            <mat-list-item>
+              <mat-icon matListIcon>phone</mat-icon>
+              <h4 mat-line>Téléphone</h4>
+              <p matLine> {{team.phone}} </p>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-card>
+
+        <mat-card class="p-0" *ngIf="team.email">
+          <mat-nav-list class="p-0">
+            <mat-list-item>
+              <mat-icon matListIcon>alternate_email</mat-icon>
+              <h4 mat-line>Email</h4>
+              <p matLine> {{team.email}} </p>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-card>
+
+        <mat-card class="p-0" *ngIf="team.website">
+          <mat-nav-list class="p-0">
+            <mat-list-item>
+              <mat-icon matListIcon>web</mat-icon>
+              <h4 mat-line>Site web</h4>
+              <p matLine> {{team.website}} </p>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+
+</div>

@@ -1,0 +1,32 @@
+<div fxFlex fxLayout="column">
+  <!--
+  <div fxFlex="0 0 auto">
+    {{match.utcDate | date:'dd/MM/yyyy à HH:mm'}}
+  </div>-->
+  <div fxFlex="1 0 auto" fxLayout="row" fxLayoutGap="15px">
+    <div fxFlex="1 0 40" fxLayout="row" fxLayoutAlign="flex-end center" fxLayoutGap="10px">
+        <div >{{match.homeTeam.name}}</div>
+        <app-blason  [logo]="match.homeTeam.logo" [width]="'40px'" [height]="'40px'"></app-blason>
+    </div>
+    <div fxFlex="0 0 10" fxLayout="column">
+      <div fxFlex="1 0 auto" fxLayoutAlign="center center" class="real-score" >
+        <div fxFlex="0 0 40">
+          <span *ngIf="match.score.fullTime">{{match.score.fullTime.homeTeam}}</span>
+        </div>
+        <div fxFlex="0 0 5">
+          <span>-</span>
+        </div>
+        <div fxFlex="0 0 40">
+          <span *ngIf="match.score.fullTime">{{match.score.fullTime.awayTeam}}</span>
+        </div>
+      </div>
+      <div fxFlex="1 0 auto" fxLayoutAlign="center center" *ngIf="pronostic" class="user-score">
+        {{pronostic.goalsHomeTeam}} - {{pronostic.goalsAwayTeam}}
+      </div>
+    </div>
+    <div fxFlex="1 0 40" fxLayoutAlign="flex-start center" fxLayoutGap="10px">
+      <app-blason [logo]="match.awayTeam.logo" [width]="'40px'" [height]="'40px'"></app-blason>
+      <div>{{match.awayTeam.name}}</div>
+    </div>
+  </div>
+</div>

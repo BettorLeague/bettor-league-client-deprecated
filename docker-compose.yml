@@ -1,0 +1,20 @@
+version: '2'
+services:
+  bettor-league-client:
+    container_name: bettor-league-client
+    image: nadjim/bettor-league-client
+    ports:
+      - "8070:80"
+    networks:
+      - bettor-league
+      - default
+    labels:
+      - "traefik.backend=bettor-league-client"
+      - "traefik.docker.network=bettor-league"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:web.bettorleague.ovh"
+      - "traefik.port=80"
+
+networks:
+  bettor-league:
+    external: true

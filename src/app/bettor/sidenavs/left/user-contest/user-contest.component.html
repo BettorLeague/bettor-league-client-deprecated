@@ -1,0 +1,178 @@
+<!-- SIDENAV HEADER -->
+<div class="sidenav-header">
+  <!-- CHATS TOOLBAR -->
+  <mat-toolbar>
+
+    <!-- TOOLBAR TOP -->
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+
+      <!-- USER AVATAR WRAPPER -->
+      <div class="avatar-wrapper">
+
+        <!-- USER AVATAR -->
+        <img (click)="changeLeftSidenavView('profil')"
+             src="http://angular-material.fusetheme.com/assets/images/avatars/profile.jpg"
+             class="mat-avatar avatar"/>
+        <!-- / USER AVATAR -->
+
+      </div>
+      <!-- / USER AVATAR -->
+      <span fxFlex="1 1 auto"></span>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+
+        <button mat-icon-button (click)="changeLeftSidenavView('subscribe-contest')" >
+          <mat-icon color="primary">add_circle_outline</mat-icon>
+        </button>
+        <button mat-icon-button >
+          <mat-icon color="primary">create</mat-icon>
+        </button>
+
+        <button mat-icon-button
+                [matMenuTriggerFor]="userMenu"
+                aria-label="more">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu" [overlapTrigger]="false" xPosition="before" yPosition="below">
+          <button mat-menu-item (click)="changeLeftSidenavView('profil')">
+            <mat-icon>account_circle</mat-icon> Profil
+          </button>
+          <button mat-menu-item (click)="logout()"><mat-icon>exit_to_app</mat-icon><span>Déconnexion</span>
+          </button>
+        </mat-menu>
+      </div>
+
+    </mat-toolbar-row>
+    <!-- / TOOLBAR TOP -->
+
+    <!-- TOOLBAR BOTTOM -->
+    <mat-toolbar-row>
+
+      <!-- SEARCH -->
+      <div class="search-wrapper" fxFlex fxLayout="row" fxLayoutAlign="start center">
+
+        <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+
+          <mat-icon>search</mat-icon>
+
+          <input [(ngModel)]="searchText" type="text" placeholder="Rechercher un concours" fxFlex>
+
+        </div>
+      </div>
+      <!-- / SEARCH -->
+
+    </mat-toolbar-row>
+    <!-- / TOOLBAR BOTTOM -->
+
+  </mat-toolbar>
+  <!-- / CHATS TOOLBAR -->
+
+</div>
+<!-- / SIDENAV HEADER -->
+
+<!-- SIDENAV CONTENT -->
+<div class="sidenav-content" fxFlex>
+
+  <!-- CHATS CONTENT -->
+  <div>
+
+    <!-- CONCOURS PUBLIC LIST-->
+    <div class="chat-list" fxLayout="column">
+
+      <div matSubheader *ngIf="(publicContest | filter: searchText).length > 0">
+        Concours public
+      </div>
+
+      <button mat-button class="contact"
+              *ngFor="let contest of publicContest | filter: searchText"
+              (click)="selectContest(contest.id,contest.competition.id)">
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+
+          <app-blason [width]="'60px'" [height]="'60px'" [logo]="contest.competition.logo">
+
+          </app-blason>
+
+          <div fxLayout="row" fxFlex>
+
+            <div class="" fxFlex fxLayout="column" fxLayoutAlign="center start">
+              <div class="contact-name">{{contest.caption}}</div>
+            </div>
+
+            <div fxLayout="column" fxLayoutAlign="center end">
+              <div fxHide fxShow.gt-sm wclass="contact-last-message-time">
+                {{contest.competition.currentSeason.startDate | date}}
+              </div>
+              <div class="unread-message-count mat-primary-bg">{{contest.numberOfPlayers}}</div>
+            </div>
+          </div>
+        </div>
+
+      </button>
+
+    </div>
+    <!-- / CONCOURS PUBLIC LIST-->
+
+
+    <!-- CONCOURS PUBLIC LIST-->
+    <div class="chat-list" fxLayout="column">
+
+      <div matSubheader *ngIf="(privateContest | filter: searchText).length > 0">
+        Concours Privé
+      </div>
+
+      <button mat-button class="contact"
+              *ngFor="let contest of privateContest | filter: searchText"
+              (click)="selectContest(contest.id,contest.competition.id)">
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+
+          <app-blason [width]="'60px'" [height]="'60px'" [logo]="contest.competition.logo">
+
+          </app-blason>
+
+          <div fxLayout="row" fxFlex>
+
+            <div class="" fxFlex fxLayout="column" fxLayoutAlign="center start">
+              <div class="contact-name">{{contest.caption}}</div>
+            </div>
+
+            <div fxLayout="column" fxLayoutAlign="center end">
+              <div fxHide fxShow.gt-sm class="contact-last-message-time">
+                {{contest.competition.currentSeason.startDate | date}}
+              </div>
+              <div class="unread-message-count mat-primary-bg">{{contest.numberOfPlayers}}</div>
+            </div>
+          </div>
+        </div>
+      </button>
+
+    </div>
+    <!-- / CONCOURS PUBLIC LIST-->
+
+
+    <!-- NO RESULTS MESSAGE -->
+    <div [@animate]="{value:'*',params:{delay:'0ms',y:'-100%',duration:'500ms'}}" *ngIf="(publicContest| filter: searchText).length === 0 && (privateContest| filter: searchText).length === 0 " class="no-results-message">
+      <mat-list >
+
+        <div fxLayout="column">
+          <h3 matSubheader> Aucun resultat...</h3>
+          <mat-list-item disableRipple>
+            <button (click)="changeLeftSidenavView('subscribe-contest')" mat-stroked-button >
+              S'inscrire à un Concours
+            </button>
+          </mat-list-item>
+
+        </div>
+      </mat-list>
+    </div>
+    <!-- NO RESULTS MESSAGE-->
+  </div>
+  <!-- / CHATS CONTENT -->
+
+</div>
+<!-- / SIDENAV CONTENT -->
+

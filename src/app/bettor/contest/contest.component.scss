@@ -1,0 +1,84 @@
+:host {
+  display: flex;
+  flex: 1 0 auto;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 20%, rgba(255, 255, 255, 0.8));
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+
+  .chat {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    .chat-toolbar {
+      min-height: 64px;
+      //background-color: #F3F4F5;
+      color: rgba(0, 0, 0, 0.87);
+      border-bottom: 1px solid rgba(0, 0, 0, .08);
+
+      .responsive-chats-button {
+        padding: 0;
+      }
+
+      .chat-contact {
+        cursor: pointer;
+
+        .avatar {
+          margin-right: 16px;
+        }
+
+      }
+    }
+
+    #chat-content {
+      background: transparent;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+
+      ::ng-deep .mat-tab-group{
+        height: 100%;
+        width: 100%;
+        ::ng-deep.mat-tab-header{
+          z-index: 2;
+        }
+        ::ng-deep .mat-tab-body{
+          ::ng-deep .mat-tab-body-content{
+            max-width: 100%;
+            overflow: auto;
+          }
+          //background: white;
+        }
+        ::ng-deep .mat-tab-body-wrapper{
+          flex: 1;
+        }
+      }
+    }
+
+  }
+  .mat-sidenav-container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+
+    ::ng-deep .mat-sidenav-content,
+    ::ng-deep .mat-drawer-content {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      height: auto;
+    }
+
+    ::ng-deep .mat-drawer-content {
+      width: 100%;
+    }
+  }
+  mat-sidenav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .tab-icon{
+    margin-right: 5px;
+  }
+}

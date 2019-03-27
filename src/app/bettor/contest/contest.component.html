@@ -1,0 +1,123 @@
+
+
+<mat-sidenav-container hasBackdrop="false">
+
+  <mat-sidenav #pronosticDrawer mode="over" position="end" closed>
+    <app-pronostic-info></app-pronostic-info>
+  </mat-sidenav>
+
+    <div class="chat" fxFlex fxLayout="column">
+
+      <!-- CHAT TOOLBAR -->
+      <mat-toolbar class="chat-toolbar">
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+
+          <div fxLayout="row" fxLayoutGap="'10px'">
+            <button mat-icon-button class="responsive-chats-button mr-16"
+                    fuseMatSidenavToggler="bettor-left-sidenav"
+                    aria-label="chats button">
+              <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+          <div fxFlex="1" fxLayout="row" fxLayoutAlign="center">
+            <!-- CHAT CONTACT-->
+            <div class="chat-contact" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px"
+                 (click)="getContestInfo()">
+
+              <div class="avatar-wrapper " fxLayout="row" >
+                <app-blason [width]="'45px'" [height]="'45px'" [logo]="contest.competition.logo">
+
+                </app-blason>
+
+                <mat-icon class="s-16 status">
+                </mat-icon>
+              </div>
+
+              <div class="chat-contact-name">
+                {{contest.caption}}
+              </div>
+
+            </div>
+            <!-- / CHAT CONTACT-->
+          </div>
+
+          <div>
+            <button mat-icon-button [matMenuTriggerFor]="contactMenu" aria-label="more">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #contactMenu="matMenu" [overlapTrigger]="false" xPosition="before" yPosition="below">
+              <button mat-menu-item (click)="getContestInfo()" >
+                <mat-icon>info</mat-icon>
+                <span>Information du concours</span>
+              </button>
+              <button mat-menu-item (click)="unsubscribe()"><mat-icon>exit_to_app</mat-icon><span>Quitter le concours</span>
+              </button>
+              <button mat-menu-item ><mat-icon>delete</mat-icon><span>Supprimer le concours</span>
+              </button>
+            </mat-menu>
+          </div>
+
+        </div>
+      </mat-toolbar>
+      <!-- / CHAT TOOLBAR -->
+
+      <!-- CHAT CONTENT -->
+      <div id="chat-content" fxFlex>
+
+        <mat-tab-group mat-stretch-tabs>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon">check_box</mat-icon>
+              Matchs
+            </ng-template>
+
+            <ng-template matTabContent>
+              <app-matches></app-matches>
+            </ng-template>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon">people</mat-icon>
+              Participants
+            </ng-template>
+
+            <ng-template matTabContent>
+              <app-players></app-players>
+            </ng-template>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon">list</mat-icon>
+              Championnat
+            </ng-template>
+
+
+            <ng-template matTabContent>
+              <app-standings></app-standings>
+            </ng-template>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="tab-icon">comment</mat-icon>
+              Discussion
+            </ng-template>
+
+            <ng-template matTabContent>
+              <app-messages></app-messages>
+            </ng-template>
+          </mat-tab>
+
+        </mat-tab-group>
+      </div>
+      <!-- / CHAT CONTENT -->
+
+
+    </div>
+
+</mat-sidenav-container>

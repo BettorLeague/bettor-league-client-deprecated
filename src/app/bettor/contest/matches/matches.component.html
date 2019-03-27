@@ -1,0 +1,60 @@
+<div class="filter" fxLayout="row" *ngIf="competitionInfo" >
+
+  <div fxFlex="0 1 auto" fxLayout="row">
+
+    <ng-container  *ngIf="isRegularSeason(); else notRegularCompetition">
+      <button  mat-button mat-icon-button  class="my-auto ml-8" (click)="selectMatchesByMatchDay(+selectedIndex-1)">
+        <mat-icon fxFlexAlign="center" class="mr-4">arrow_back</mat-icon>
+      </button>
+
+      <button mat-button class="no-radius" [matMenuTriggerFor]="selectDay" >
+        <span>Journée {{selectedIndex}} sur {{competitionInfo.currentSeason.availableMatchday}}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+
+      <button  mat-button mat-icon-button class="m-auto" (click)="selectMatchesByMatchDay(+selectedIndex+1)">
+        <mat-icon fxFlexAlign="center" class="mr-4">arrow_forward</mat-icon>
+      </button>
+
+      <mat-menu class="custom-menu" #selectDay="matMenu" [overlapTrigger]="false" xPosition="before" yPosition="below">
+        <button [class.active]="matchday.toString() === selectedIndex.toString()" mat-menu-item *ngFor="let matchday of matchdays" (click)="selectMatchesByMatchDay(matchday)">{{matchday}}</button>
+      </mat-menu>
+    </ng-container>
+
+    <ng-template #notRegularCompetition>
+      <button mat-button [matMenuTriggerFor]="selectDay" >
+        <span>{{selectedIndex}}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu class="custom-menu-stage" #selectDay="matMenu" [overlapTrigger]="false" xPosition="before" yPosition="below">
+        <button [class.active]="stage === selectedIndex.toString()" mat-menu-item *ngFor="let stage of competitionInfo.availableStage" (click)="selectMatchesByStage(stage)">{{stage}}</button>
+      </mat-menu>
+    </ng-template>
+
+  </div>
+  <div fxFlex="1 0 auto" fxLayout="row" fxHide fxShow.gt-sm [style.position]="'relative'">
+    <mat-icon class="search-icon">search</mat-icon>
+    <input type="text" [(ngModel)]="filterMatch" class="input-search" placeholder="filtrer par equipe" />
+    <button class="reset-input" mat-button *ngIf="filterMatch" matSuffix mat-icon-button aria-label="Clear" (click)="filterMatch=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div fxFlex="0 1 auto" fxLayout="row" class="ml-auto">
+    <button  mat-button class="no-radius" [matMenuTriggerFor]="selectFilter">
+      <mat-icon fxFlexAlign="center" class="mr-4">sort</mat-icon>
+      <span class="ml-4">Trier par</span>
+    </button>
+
+    <mat-menu class="custom-menu" #selectFilter="matMenu" [overlapTrigger]="false" xPosition="before" yPosition="below">
+      <button  mat-menu-item (click)="trieMatch.field = 'utcDate'; trieMatch.asc = true">Date récente</button>
+      <button  mat-menu-item (click)="trieMatch.field = 'utcDate'; trieMatch.asc = false">Date ancienne</button>
+    </mat-menu>
+  </div>
+
+  <app-selected-bar [filter]="filterMatch" class="mat-accent-600-bg" *ngIf="selectedMatch.length > 0" [@slideInTop] ></app-selected-bar>
+
+</div>
+
+
+<app-match [filter]="filterMatch" [trie]="trieMatch"></app-match>

@@ -1,0 +1,79 @@
+<ng-container *ngIf="messages && player; else loader">
+  <!-- CHAT -->
+  <div class="chat" fxFlex fxLayout="column">
+
+
+    <!-- CHAT CONTENT -->
+    <div id="chat-content" >
+
+      <!-- CHAT MESSAGES -->
+      <div class="chat-messages" #scrollMe >
+
+        <!-- MESSAGE -->
+        <div class="message-row" *ngFor="let message of messages; let i = index"
+             [ngClass]="{
+              'me': message.player.id === player.id,
+              'contact': message.player.id !== player.id,
+              'first-of-group': isFirstMessageOfGroup(message,i),
+              'last-of-group': isLastMessageOfGroup(message, i)
+            }">
+
+          <app-avatar class="avatar" *ngIf="message.player.id !== player.id && isFirstMessageOfGroup(message, i)" [userEmail]="message.player.user.email"></app-avatar>
+
+          <p class="message-username" *ngIf="message.player.id !== player.id && isFirstMessageOfGroup(message, i)">{{message.player.user.username}}</p>
+
+          <div class="bubble">
+            <div class="message" [innerHTML]="message.content | noSanitize">{{message.content}}</div>
+            <div class="time secondary-text">{{message.date | date:'dd/MM/yyyy à HH:mm'}}</div>
+          </div>
+
+        </div>
+        <!-- / MESSAGE -->
+
+      </div>
+      <!-- CHAT MESSAGES -->
+
+    </div>
+    <!-- / CHAT CONTENT -->
+
+    <!-- CHAT EMOJI -->
+    <div class="emoji-container">
+      <app-emoji *ngIf="showEmoji" [@openClose]="showEmoji ? 'open' : 'closed'" [message]="message" (selected)="onEmojiSelected($event)" ></app-emoji>
+    </div>
+    <!-- / CHAT EMOJI -->
+
+    <!-- CHAT FOOTER -->
+    <div class="chat-footer" fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="center center">
+
+      <!-- REPLY FORM -->
+      <div class="reply-form" fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="center space-around">
+
+        <button class="my-auto" mat-icon-button (click)="toggle()">
+          <mat-icon aria-label="Example icon-button with a heart icon">insert_emoticon</mat-icon>
+        </button>
+
+        <div contenteditable
+             class="input-chat"
+             (keydown.enter)="reply()"
+             [(ngModel)]="message"
+             spellcheck="true"
+             data-tab="1"
+             propValueAccessor="innerHTML"></div>
+
+        <button class="my-auto" mat-icon-button (click)="reply()" aria-label="Send message">
+          <mat-icon class="secondary-text">send</mat-icon>
+        </button>
+
+      </div>
+      <!-- / REPLY FORM -->
+
+    </div>
+    <!-- / CHAT FOOTER-->
+
+
+  </div>
+  <!-- / CHAT -->
+</ng-container>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

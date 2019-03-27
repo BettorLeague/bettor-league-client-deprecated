@@ -1,0 +1,41 @@
+<div id="bettor" class="page-layout carded fullwidth">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg mat-primary-bg"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+
+      <mat-sidenav-container>
+
+        <!-- LEFT SIDENAV -->
+        <mat-sidenav class="sidenav" position="start" opened="true" mode="side"
+                     fuseMatSidenavHelper="bettor-left-sidenav" mat-is-locked-open="gt-md">
+          <bettor-left-sidenav></bettor-left-sidenav>
+        </mat-sidenav>
+        <!-- / LEFT SIDENAV -->
+
+        <!-- CONTENT -->
+        <app-contest *ngIf="selectedContest"></app-contest>
+        <app-bettor-start *ngIf="!selectedContest"></app-bettor-start>
+        <!-- / CONTENT -->
+
+        <!-- RIGHT SIDENAV -->
+        <mat-sidenav position="end" opened="false" mode="side" fuseMatSidenavHelper="bettor-right-sidenav">
+          <bettor-right-sidenav></bettor-right-sidenav>
+        </mat-sidenav>
+        <!-- / RIGHT SIDENAV -->
+
+      </mat-sidenav-container>
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+</div>

@@ -1,0 +1,29 @@
+<div fxFlex fxLayout="column">
+  <div fxFlex="0 0 auto" class="swiper-container"  [swiper]="config" [(index)]="index" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'300ms',x:'-100%'}}">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let competition of competitions">
+        <app-blason class="logo-contest"  [width]="'130px'" [height]="'130px'" [logo]="competition.logo"></app-blason>
+      </div>
+    </div>
+  </div>
+  <div id="login-intro" fxFlex="1 0 auto">
+    <!--
+    <div class="logo" *fuseIfOnDom [@animate]="{value:'*',params:{scale:'0.2'}}">
+      <img src="assets/images/logos/fuse.svg">
+    </div>-->
+    <div class="title" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',y:'25px'}}">
+      Welcome to Bettor League!
+    </div>
+    <div class="sub-title mt-12" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',y:'25px'}}">
+      Bet with your friends and have fun.
+    </div>
+    <div class="description" fxHide fxShow.gt-sm *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
+      Be amazed by the best pronostics website on the web!
+      Your new app to show your abilities to your friends and to show them who's the best.
+      Simple, elegant and well coded :) we are trying to make our users happy everyday !
+    </div>
+  </div>
+</div>
+
+
+

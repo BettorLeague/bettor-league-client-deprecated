@@ -1,0 +1,70 @@
+<mat-table matSort  matSortActive="position" matSortDirection="asc" [dataSource]="dataSource">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Position </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element" fxLayoutGap="15px">
+        <app-blason [height]="'40px'" [width]="'40px'" [logo]="element.team.logo"></app-blason>
+        <span>{{element.team.name}}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Points -->
+  <ng-container matColumnDef="points">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Points </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.points}}</mat-cell>
+  </ng-container>
+
+
+  <!-- Matchs joués -->
+  <ng-container matColumnDef="playedGames">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>J</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.playedGames}} </mat-cell>
+  </ng-container>
+
+  <!-- Gagné -->
+  <ng-container matColumnDef="won">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> G </mat-header-cell>
+    <mat-cell *matCellDef="let element" class="green">{{element.won}}</mat-cell>
+  </ng-container>
+
+  <!-- Nul -->
+  <ng-container matColumnDef="draw">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> N </mat-header-cell>
+    <mat-cell *matCellDef="let element" class="orange">{{element.draw}}</mat-cell>
+  </ng-container>
+
+  <!-- Perdus -->
+  <ng-container matColumnDef="lost">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> P </mat-header-cell>
+    <mat-cell *matCellDef="let element" class="red">{{element.lost}}</mat-cell>
+  </ng-container>
+
+  <!-- Buts -->
+  <ng-container  matColumnDef="goalsFor">
+    <mat-header-cell   *matHeaderCellDef mat-sort-header>BM</mat-header-cell>
+    <mat-cell  *matCellDef="let element"> {{element.goalsFor}} </mat-cell>
+  </ng-container>
+
+  <!-- Buts contre -->
+  <ng-container matColumnDef="goalsAgainst">
+    <mat-header-cell    *matHeaderCellDef mat-sort-header>BE</mat-header-cell>
+    <mat-cell   *matCellDef="let element" > {{element.goalsAgainst}} </mat-cell>
+  </ng-container>
+
+  <!-- Goal difference -->
+  <ng-container  matColumnDef="goalDifference">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Diff</mat-header-cell>
+    <mat-cell    *matCellDef="let element">{{element.goalDifference}}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['position','name','points','playedGames','won','draw','lost', 'goalsFor', 'goalsAgainst', 'goalDifference'];sticky: true"></mat-header-row>
+  <mat-row  [ngClass]="{'green-100-bg' : row.position == '1' , 'green-50-bg' :row.position == '2' , 'red-50-bg' : (row.position == standing.table.length -1) , 'red-100-bg' : (row.position == standing.table.length )}"
+            mat-ripple  (click)="selectTeam(row.team)" *matRowDef="let row; columns: ['position','name','points','playedGames','won','draw','lost', 'goalsFor', 'goalsAgainst', 'goalDifference'];"></mat-row>
+</mat-table>

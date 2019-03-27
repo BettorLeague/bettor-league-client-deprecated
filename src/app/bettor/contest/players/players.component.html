@@ -1,0 +1,59 @@
+<div class="filter">
+  <div class="px-16" fxFlex fxLayout="row" fxLayoutAlign="start center">
+    <div fxFlex="1 0 auto" fxLayout="row" [style.position]="'relative'">
+
+      <mat-icon class="search-icon">search</mat-icon>
+      <input type="text" [(ngModel)]="filterPlayer" (keyup)="applyFilter()" class="input-search" placeholder="Rechercher un participant"/>
+      <button class="reset-input" mat-button *ngIf="filterPlayer" matSuffix mat-icon-button aria-label="Clear" (click)="filterPlayer='';applyFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<table matSort mat-table matSortActive="points" matSortDirection="desc" [dataSource]="dataSource">
+
+  <ng-container matColumnDef="position">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Position </mat-header-cell>
+    <mat-cell *matCellDef="let element;">{{element.position}}</mat-cell>
+  </ng-container>
+
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.player.user.username}}  </mat-cell>
+  </ng-container>
+
+  <!-- Points -->
+  <ng-container matColumnDef="points">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Points</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.player.points}}</mat-cell>
+  </ng-container>
+
+
+  <!-- Good Pronostic -->
+  <ng-container matColumnDef="goodPronostic">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Good Pronostic</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <span class="table-value">{{element.player.goodPronostic}}</span>
+        <span class="table-value mr-8">{{getWidthPercent(element.player.goodPronostic,element.player.totalPronostic)}}</span>
+        <div class="background-good-pronostic" [style.width]="getWidthPercent(element.player.goodPronostic,element.player.totalPronostic)"></div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Exact Pronostic -->
+  <ng-container matColumnDef="exactPronostic">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Exact Pronostic</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+
+      <span class="table-value">{{element.player.exactPronostic}}</span>
+      <span class="table-value mr-8">{{getWidthPercent(element.player.exactPronostic,element.player.totalPronostic)}}</span>
+      <div class="background-good-pronostic" [style.width]="getWidthPercent(element.player.exactPronostic,element.player.totalPronostic)"></div>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="['position','name','points','goodPronostic','exactPronostic']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['position','name','points','goodPronostic','exactPronostic']"></mat-row>
+</table>

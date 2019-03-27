@@ -1,0 +1,69 @@
+@import "src/@fuse/scss/fuse";
+:host{
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .mat-grid-list{
+    overflow: hidden;
+  }
+  .mat-grid-tile{
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    border-color: #E0E0E0;
+    .match-indicator{
+      position: absolute;
+      right: 0;
+
+      top: 0;
+      color: white;
+      background-color: #3c4252;
+      padding: 0px 5px 0px 5px;
+      z-index: 1;
+    }
+    .match-indicator:before{
+      bottom: 0;
+      -webkit-transform: skewX(-22.5deg);
+      transform: skewX(-22.5deg);
+      -webkit-transform-origin: 100% 0;
+      transform-origin: 100% 0;
+      background: inherit;
+      content: "";
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      right: 0;
+      z-index: -1;
+    }
+  }
+  .mat-grid-tile:hover{
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  section{
+    flex: 1;
+    overflow: auto;
+    position: relative;
+  }
+
+  .score{
+    align-self: center;
+    padding: 5px 10px;
+    border:1px solid #E0E0E0;
+    background: #e8e8e8;
+    color: rgba(0,0,0,.6);
+    border-radius: 10%;
+  }
+
+  .prono{
+    align-self: center;
+    padding: 5px 10px;
+    border:1px solid #E0E0E0;
+    background: white;
+    color: rgba(0,0,0,.6);
+    border-radius: 10%;
+  }
+}
